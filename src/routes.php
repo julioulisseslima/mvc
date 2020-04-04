@@ -12,8 +12,11 @@ $router->post('/cadastro', 'LoginController@signupAction');
 
 $router->post('/post/new', 'Postcontroller@new');
 
+$router->get('/perfil/{id}', 'ProfileController@index');
+$router->get('/perfil', 'ProfileController@index');
+
+
 //$router->get('/pesquiasr');
-//$router->get('/perfil');
 //$router->get('/sair');
 //$router->get('/amigos');
 //$router->get('/fotos');
