@@ -24,10 +24,12 @@ class PostHandler {
     public static function getHomeFeed($idUser)
     {
         //1. pegar lista de usuários que eu sigo.
-        $userList = UserRelation::select()->where('user_from', $idUser)->execute();
+        $userList = UserRelation::select()
+        ->where('user_from', $idUser)
+        ->execute();
         $users = [];
         foreach($userList as $userItem) {
-            $user[] = $userItem['user_to'];
+            $users[] = $userItem['user_to'];
         }
         $users[] = $idUser;
 
@@ -47,6 +49,11 @@ class PostHandler {
             $newPost->type = $postItem['type'];
             $newPost->created_at = $postItem['created_at'];
             $newPost->body = $postItem['body'];
+            $newPost->mine = false;
+
+            if($postItem['id_user'] == $idUser) {
+                $newPost->mine = true;
+            }
             
             //4. preenhcer as informações adicionais no post
             $newUser = User::select()
@@ -58,7 +65,12 @@ class PostHandler {
             $newPost->user->avatar = $newUser['avatar'];
             
             //TODO: 4.1 preenhcer informaç~´oes de LIKE
+            $newPost->likeCount = 0;
+            $newPost->liked = false;
+
+
             //TOOD: 4.2 preencher informações de COMMENTS
+            $newPost->comments = [];
             $posts[] = $newPost;
         }
         
