@@ -1,5 +1,5 @@
 <div class="column pr-5">
-
+    
     <div class="box feed-new">
         <div class="box-body">
             <div class="feed-new-editor m-10 row">
