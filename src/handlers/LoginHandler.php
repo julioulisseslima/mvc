@@ -45,6 +45,16 @@ class LoginHandler {
         return false;
     }
 
+    public function idExists($id) {
+        //Verifica se o e-mail já existe
+        $user = User::select()
+            ->where('id', $id)
+            ->one();
+
+        //Achou e-mail? SIM : NÃO
+        return $user ? true : false;
+    }
+
     public function emailExists($email) {
         //Verifica se o e-mail já existe
         $user = User::select()

@@ -1,6 +1,8 @@
 <?=$render('header', ['loggedUser'=>$loggedUser]);?>
 <section class="container main">
-    <?=$render('sidebar');?>
+    <?=$render('sidebar', [
+        'activeMenu' => 'home'
+    ]);?>
 
     <section class="feed mt-10">
 
