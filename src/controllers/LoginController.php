@@ -2,7 +2,7 @@
 namespace src\controllers;
 
 use \core\Controller;
-use \src\handlers\LoginHandler;
+use \src\handlers\UserHandler;
 use src\models\User;
 
 class LoginController extends Controller {
@@ -23,7 +23,7 @@ class LoginController extends Controller {
         $password = filter_input(INPUT_POST, 'password');
 
         if($email && $password) {
-            $token = LoginHandler::verifyLogin($email, $password);
+            $token = UserHandler::verifyLogin($email, $password);
             if($token) {
                 $_SESSION['token'] = $token;
                 $_SESSION['email'] = $email;
@@ -74,9 +74,9 @@ class LoginController extends Controller {
                 }
 
                 //Verificar se existe algum usuário cadastrado com mesmo e-mail
-                if(LoginHandler::emailExists($email) === false){
+                if(UserHandler::emailExists($email) === false){
                     //Se o e-mail não existir, insere o usuário
-                    LoginHandler::addUser($name, $email, $password, $birthdate);
+                    UserHandler::addUser($name, $email, $password, $birthdate);
                     $_SESSION['token'] = $token;
                     $_SESSION['name'] = $name;
                     $this->redirect('/');
