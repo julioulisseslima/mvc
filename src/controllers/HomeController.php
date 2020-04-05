@@ -22,7 +22,7 @@ class HomeController extends Controller {
     public function index() {
         $page = filter_input(INPUT_GET, 'page');
 
-        echo "PAGE".$page;
+        //echo "PAGE".$page;
 
         $feed = PostHandler::getHomeFeed(
             $this->loggedUser->id,
