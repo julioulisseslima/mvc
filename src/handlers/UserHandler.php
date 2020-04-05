@@ -2,6 +2,7 @@
 namespace src\handlers;
 
 use \src\models\User;
+use \src\models\UserRelation;
 
 class UserHandler {
 
@@ -65,7 +66,7 @@ class UserHandler {
         return $user ? true : false;
     }
 
-    public function getUser($id = null)
+    public function getUser($id = null, $full = false)
     {
         $data = User::select()
                 ->where('id', $id)
@@ -80,6 +81,42 @@ class UserHandler {
             $user->work = $data['work'];
             $user->avatar = $data['avatar'];
             $user->cover = $data['cover'];
+
+        if($full) {
+            $user->followers = [];
+            $user->following = [];
+            $user->photos =[];
+
+            //followers
+            $followers = UserRelation::select()
+                                    ->where('user_to', $id)
+                                    ->get();
+            foreach($followers as $follower) {
+                $userData = User::select()->where('id', $follower['user_from'])->one();
+                $newUser = new user();
+                $newUser->id =  $userData['id'];
+                $newUser->name =  $userData['name'];
+                $newUser->avatar =  $userData['avatar'];
+
+                $user->followers[] = $newUser;
+            }
+
+            //following
+            $following = UserRelation::select()
+                                    ->where('user_from', $id)
+                                    ->get();
+            foreach($following as $follower) {
+                $userData = User::select()->where('id', $follower['user_to'])->one();
+                $newUser = new user();
+                $newUser->id =  $userData['id'];
+                $newUser->name =  $userData['name'];
+                $newUser->avatar =  $userData['avatar'];
+
+                $user->following[] = $newUser;
+            }
+
+            //photos
+        }
 
             return $user;
         }
@@ -96,7 +133,7 @@ class UserHandler {
             'email' => $email,
             'password' => $hash,
             'name' => $name,
-            'birthday' => $birthdate,
+            'birthdate' => $birthdate,
             'avatar' => 'default.jpg',
             'token' => $token
         ])->execute();
