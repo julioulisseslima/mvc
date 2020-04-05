@@ -24,7 +24,15 @@
             </div>
         </div>
         <div class="feed-item-body mt-10 m-width-20">
-        <?=nl2br($data->body);?>
+            
+        <?php 
+            if($data->type == 'photo'){
+                echo '<img src="'.$base.'/media/uploads/'.$data->body.'"/>';
+            } else {
+                echo "<nl2br>$data->body";
+            }
+        ?>        
+
         </div>
         <div class="feed-item-buttons row mt-20 m-width-20">
             <div class="like-btn <?=($data->liked ? 'on' : '') ?>"><?=$data->likeCount;?></div>
