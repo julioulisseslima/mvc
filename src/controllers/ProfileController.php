@@ -1,6 +1,7 @@
 <?php
 namespace src\controllers;
 
+use ClanCats\Hydrahon\Query\Sql\Exists;
 use \core\Controller;
 use \src\handlers\UserHandler;
 use src\handlers\PostHandler;
@@ -54,7 +55,27 @@ class ProfileController extends Controller {
             'feed' => $feed,
             'isFollowing' => $isFollowing
         ]);
-        }
+
+    }
+
+    public function follow($atts) {
+       $to = intval($atts['id']);
+
+        if(UserHandler::idExists($to)){
+
+            if(Userhandler::isFollowing($this->loggedUser->id, $to)){
+                //deixar de seguir
+                UserHandler::unfollow($this->loggedUser->id, $to);
+            } else {
+                //seguir
+                UserHandler::follow($this->loggedUser->id, $to);
+            }
+
+       }   
+
+       $this->redirect('/perfil/'.$to);
+    }
+    
 
 
 

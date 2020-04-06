@@ -12,6 +12,7 @@ $router->post('/cadastro', 'LoginController@signupAction');
 
 $router->post('/post/new', 'Postcontroller@new');
 
+$router->get('/perfil/{id}/follow', 'ProfileController@follow');
 $router->get('/perfil/{id}', 'ProfileController@index');
 $router->get('/perfil', 'ProfileController@index');
 

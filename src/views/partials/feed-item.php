@@ -2,7 +2,7 @@
     <div class="box-body">
         <div class="feed-item-head row mt-20 m-width-20">
             <div class="feed-item-head-photo">
-                <a href=""><img src="<?=$base;?>/media/avatars/<?=$data->user->avatar;?>" /></a>
+                <a href="<?=$base?>/perfil/<?=$data->user->id?>"><img src="<?=$base;?>/media/avatars/<?=$data->user->avatar;?>" /></a>
             </div>
             <div class="feed-item-head-info">
                 <a href=""><span class="fidi-name"><?=$data->user->name;?></span></a>
