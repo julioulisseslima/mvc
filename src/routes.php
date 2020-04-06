@@ -15,9 +15,10 @@ $router->post('/post/new', 'Postcontroller@new');
 $router->get('/perfil/{id}', 'ProfileController@index');
 $router->get('/perfil', 'ProfileController@index');
 
+$router->get('/sair', 'LoginController@logout');
 
 //$router->get('/pesquiasr');
-//$router->get('/sair');
+
 //$router->get('/amigos');
 //$router->get('/fotos');
 //$router->get('/config');
